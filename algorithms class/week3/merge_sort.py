@@ -16,9 +16,13 @@ def merge_sort(arr):
     return merge(left, right)
 
 def merge(left, right):
+
+    # 병합 결과를 저장할 result 배열과
+    # 왼쪽 배열과 오른쪽 배열을 가리킬 인덱스 i, j를 선언합니다.
     result = []
     i = j = 0
 
+    # 왼쪽 배열과 오른쪽 배열 모두 순회할 동안 반복하는 while문입니다.
     while i < len(left) and j < len(right):
         if left[i] < right[j]:
             result.append(left[i])
@@ -27,6 +31,7 @@ def merge(left, right):
             result.append(right[j])
             j += 1
 
+    # 왼쪽 혹은 오른쪽 배열 중 아직 순회하지 않은 요소가 있다면 결과에 추가해줍니다.
     while i < len(left):
         result.append(left[i])
         i += 1
@@ -34,6 +39,7 @@ def merge(left, right):
     while j < len(right):
         result.append(right[j])
         j += 1
+
 
     return result
 
