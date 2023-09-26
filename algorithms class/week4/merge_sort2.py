@@ -7,13 +7,14 @@ def merge(A, left, mid, right):
     R = A[mid+1:right+1]
 
     # points elements that needs to compare
-    i = j = 0
+    i = 0
+    j = 0
 
     # save first value in arr
     # it moves when element is organized
     k = left
 
-    # check the size of values and compares
+    # check the size of values and compare
     while i < len(L) and j < len(R):
 
         #if L is smaller, put element of L into arr A
@@ -27,14 +28,15 @@ def merge(A, left, mid, right):
             j += 1
         k += 1
 
-    # merge arr
-    print("legt: ",i, len(L))
+    # merge L arr
+    # print("left: ",i, len(L))
     while i < len(L):
         A[k] = L[i]
         i += 1
         k += 1
 
-    print("right: ", i, len(R))
+    # merge R arr
+    # print("right: ", i, len(R))
     while j < len(R):
         A[k] = R[j]
         j += 1
