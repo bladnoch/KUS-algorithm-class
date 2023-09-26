@@ -1,36 +1,63 @@
-def merge_sort(A):
-    if len(A) <= 1:
-        return A
+def merge(A, left, mid, right):
 
-    mid = len(A) // 2
-    left = merge_sort(A[:mid])
-    right = merge_sort(A[mid:])
+    # save left arr
+    L = A[left:mid+1]
 
-    return merge(left, right)
+    # save right arr
+    R = A[mid+1:right+1]
 
-def merge(left, right):
-    result = []
-    left_index = 0
-    right_index = 0
+    # points elements that needs to compare
+    i = j = 0
 
-    while left_index < len(left) and right_index < len(right):
-        if left[left_index] <= right[right_index]:
-            result.append(left[left_index])
-            left_index += 1
+    # save first value in arr
+    # it moves when element is organized
+    k = left
+
+    # check the size of values and compares
+    while i < len(L) and j < len(R):
+
+        #if L is smaller, put element of L into arr A
+        if L[i] <= R[j]:
+            A[k] = L[i]
+            i += 1
+
+        # if R is smaller, put R element into arr A
         else:
-            result.append(right[right_index])
-            right_index += 1
+            A[k] = R[j]
+            j += 1
+        k += 1
 
-    while left_index < len(left):
-        result.append(left[left_index])
-        left_index += 1
+    # merge arr
+    print("legt: ",i, len(L))
+    while i < len(L):
+        A[k] = L[i]
+        i += 1
+        k += 1
 
-    while right_index < len(right):
-        result.append(right[right_index])
-        right_index += 1
+    print("right: ", i, len(R))
+    while j < len(R):
+        A[k] = R[j]
+        j += 1
+        k += 1
 
-    return result
+
+# param: arr, first element, last element
+def merge_sort(A, left, right):
+    if left<right :
+        # this will use when cut arr in half
+        mid = (left + right) // 2
+
+        merge_sort(A, left, mid)
+        merge_sort(A, mid + 1, right)
+
+        merge(A, left, mid, right)
+
 
 if __name__=="__main__":
-    a=[4,5,7,2,8,341,2456,13,46]
-    print(merge_sort(a))
+
+    # sample arr
+    a=[40,5,79,2,8,341,2456,13,46]
+
+    # param: arr, first element, last element
+    merge_sort(a,0,(len(a)-1))
+    print(a)
