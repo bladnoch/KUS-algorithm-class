@@ -31,14 +31,14 @@ def dfs(G, order=None):
 	# Visit each unvisited vertex.
 
 
-	### ...TO BE COMPLETED ... ###
+	### ...TO BE COMPLETED ... ########################################################
 	for u in order:
 		if color[u] == WHITE:
 			dfs_visit(G, u)
 
 	return d, f, pi
 
-
+	### ......END POINT....... ########################################################
 
 def dfs_visit(G, u):
 	"""Perform depth-first search on a graph represented by adjacency lists, starting
@@ -53,7 +53,7 @@ def dfs_visit(G, u):
 	global time, color, pi, d, f
 
 
-	### ...TO BE COMPLETED ... ###
+	### ...TO BE COMPLETED ... ########################################################
 	color[u] = GRAY
 	time += 1
 	d[u] = time
@@ -64,6 +64,7 @@ def dfs_visit(G, u):
 	color[u] = BLACK
 	time += 1
 	f[u] = time
+	### ......END POINT....... ########################################################
 
 # Testing
 if __name__ == "__main__":
@@ -76,9 +77,11 @@ if __name__ == "__main__":
 		graph1.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]))
 
 
-	### ...TO BE COMPLETED ... ###
+	### ...TO BE COMPLETED ... ########################################################
 
 	d, f, pi = dfs(graph1)
 	print(f"Discovery times: {d}")
 	print(f"Finish times: {f}")
 	print(f"Predecessors: {pi}")
+
+	### ......END POINT....... ########################################################
