@@ -56,15 +56,15 @@ def dfs_visit(G, u):
 	### ...TO BE COMPLETED ... ########################################################
 
 	color[u] = GRAY  # 정점 'u'를 방문 시작(회색으로 표시)
-	time += 1  # 시간 1 증
-	d[u] = time  # 정점 'u'의 발견 시간 업데이트
-	for v in G.get_adj_list(u):  # 정점 'u'의 각 인접 정점에 대해
-		if color[v.get_v()] == WHITE:  # 아직 방문하지 않은 정점이라면
-			pi[v.get_v()] = u  # 해당 정점의 선행 정점을 'u'로 설정
-			dfs_visit(G, v.get_v())  # 해당 정점에서 DFS 시작
-	color[u] = BLACK  # 정점 'u'의 모든 인접 정점을 방문 완료(검은색으로 표시)
 	time += 1  # 시간 1 증가
-	f[u] = time  # 정점 'u'의 완료 시간 업데이트
+	d[u] = time  # d 업데이트
+	for v in G.get_adj_list(u):
+		if color[v.get_v()] == WHITE:  # 아직 방문하지 않은(white) Vertex라면 실행
+			pi[v.get_v()] = u
+			dfs_visit(G, v.get_v())
+	color[u] = BLACK  # 방문(검정)
+	time += 1  # 시간 1 증가
+	f[u] = time  # f 업데이트
 
 	### ......END POINT....... ########################################################
 
@@ -91,7 +91,7 @@ if __name__ == "__main__":
 
 	# 깊이 우선 탐색을 수행하고 각 정점의 발견 시간(d), 완료 시간(f), 선행 정점(pi)를 출력합니다.
 	d, f, pi = dfs(graph1)
-	print("vertex: d = , f = , pi = ")
+	print("- Print d, f, pi for all vertices")
 	for i in range(len(vertices)):
 		print(f"{vertices[i]}: d = {d[i]}, f = {f[i]}, pi = {None if pi[i] is None else vertices[pi[i]]}")
 	### ......END POINT....... ########################################################

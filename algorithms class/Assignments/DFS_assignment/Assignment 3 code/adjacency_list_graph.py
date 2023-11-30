@@ -41,6 +41,7 @@ class Edge:
 
 class AdjacencyListGraph:
 
+
 	def __init__(self, card_V, directed=True, weighted=False):
 		"""Initialize a graph implemented by an adjacency list. Vertices are
 		numbered from 0, so that adj_list[i] corresponds to adjacency list of vertex i.
