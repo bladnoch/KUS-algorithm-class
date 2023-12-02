@@ -31,14 +31,13 @@ def dfs(G, order=None):
 	# Visit each unvisited vertex.
 
 
-	### ...TO BE COMPLETED ... ########################################################
+	### ...TO BE COMPLETED ... ###
 	for u in order: # 순서대로 vertex를 방문
 		if color[u] == WHITE: # vertex 방문되지 않았다면(white), 그 vertex에서 DFS 시작
 			dfs_visit(G, u) #dfs_visit() 호출
 
 	return d, f, pi
 
-	### ......END POINT....... ########################################################
 
 def dfs_visit(G, u):
 	"""Perform depth-first search on a graph represented by adjacency lists, starting
@@ -53,9 +52,9 @@ def dfs_visit(G, u):
 	global time, color, pi, d, f
 
 
-	### ...TO BE COMPLETED ... ########################################################
+	### ...TO BE COMPLETED ... ###
 
-	color[u] = GRAY  # 정점 'u'를 방문 시작(회색으로 표시)
+	color[u] = GRAY  # 정점 'u'를 방문 시작(gray)
 	time += 1  # 시간 1 증가
 	d[u] = time  # d 업데이트
 	for v in G.get_adj_list(u):
@@ -66,7 +65,6 @@ def dfs_visit(G, u):
 	time += 1  # 시간 1 증가
 	f[u] = time  # f 업데이트
 
-	### ......END POINT....... ########################################################
 
 # Testing
 if __name__ == "__main__":
@@ -79,7 +77,7 @@ if __name__ == "__main__":
 		graph1.insert_edge(vertices.index(edge[0]), vertices.index(edge[1]))
 
 
-	### ...TO BE COMPLETED ... ########################################################
+	### ...TO BE COMPLETED ... ###
 
 	# 모든 정점의 인접 리스트를 출력합니다.
 	print("- Adjacency list for all vertices")
@@ -89,9 +87,9 @@ if __name__ == "__main__":
 			print(f"{vertices[v.get_v()]} ", end="")
 		print()
 
+
 	# 깊이 우선 탐색을 수행하고 각 정점의 발견 시간(d), 완료 시간(f), 선행 정점(pi)를 출력합니다.
-	d, f, pi = dfs(graph1)
+	d, f, pi = dfs(graph1) # dfs 함수로 깊이 우선 탐색을 수행하고 결과를 d, f, pi에 저장
 	print("- Print d, f, pi for all vertices")
 	for i in range(len(vertices)):
 		print(f"{vertices[i]}: d = {d[i]}, f = {f[i]}, pi = {None if pi[i] is None else vertices[pi[i]]}")
-	### ......END POINT....... ########################################################
