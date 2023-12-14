@@ -24,6 +24,18 @@ def matrix_chain_order(p, n):
 	s = np.zeros(shape=[n, n+1], dtype=int)  # using indices 1:n, 2:n+1
 
     ### ...TO BE COMPLETED ... ###
+
+	for chain_length in range(2, n + 1):  # chain_length = len(matrix chain)
+		for i in range(1, n - chain_length + 2):  # i = starting matrix of the subchain
+			j = i + chain_length - 1  # j = ending matrix of the subchain
+			m[i, j] = float('inf')
+			for k in range(i, j):  # k = splitting point of the subchain
+				# Compute cost
+				cost = m[i, k] + m[k + 1, j] + p[i - 1] * p[k] * p[j]
+				if cost < m[i, j]:  # 더 적은걸 찾으면 Update m and s
+					m[i, j] = cost
+					s[i, j] = k
+
 	### ...WRITE YOUR CODE ... ###
 	return m, s
 
@@ -56,6 +68,18 @@ def recursive_matrix_chain(p, i, j):
 		return 0
 	m[i, j] = float('inf')
 	### ...TO BE COMPLETED ... ###
+
+	# Compute the minimum cost for all possible splits of the chain
+	for k in range(i, j):
+		# cost를 구하기 위해 recursive 하게 호출
+		cost = (recursive_matrix_chain(p, i, k) +
+				recursive_matrix_chain(p, k + 1, j) +
+				p[i - 1] * p[k] * p[j])
+
+		# 더 적은걸 찾으면 Update
+		if cost < m[i, j]:
+			m[i, j] = cost
+
 	### ...WRITE YOUR CODE ... ###
 	return int(m[i, j])
 
@@ -89,7 +113,14 @@ def lookup_chain(m, p, i, j):
 		m[i, j] = 0
 	else:
 		### ...TO BE COMPLETED ... ###
-		pass
+
+		# calls lookup_chain to compute subchain's minimum cost
+		for k in range(i, j):
+			# lookup minimum cost
+			cost = lookup_chain(m, p, i, k) + lookup_chain(m, p, k + 1, j) + p[i - 1] * p[k] * p[j]
+			if cost < m[i, j]:
+				m[i, j] = cost
+
 		### ...WRITE YOUR CODE ... ###
 	return int(m[i, j])
 
@@ -145,11 +176,30 @@ if __name__ == "__main__":
 	print()
 	print_m(m, n)
 	print_s(s, n)
+
+	# Q4 bottom-up
+	start_time = time.time()  # Start timer
+	m, s = matrix_chain_order(p, n)
+	bottom_up_time = time.time() - start_time  # Calculate elapsed time
 	print(int(m[1, n]))
+	print("Bottom-Up:", bottom_up_time)
+	print()
 
 	# Recursive.
 	m = np.zeros(shape=[n + 1, n + 1])
+	# Q4 recursive
+	start_time = time.time()  # Start timer
+	min_multiplications_recursive = recursive_matrix_chain(p, 1, n)
+	recursive_time = time.time() - start_time  # Calculate elapsed time
 	print(recursive_matrix_chain(p, 1, n))
+	print("Recursive:", recursive_time)
+	print()
 
 	# Memoized. Same answer.
+	# Q4 memoized
+	start_time = time.time()  # Start timer
+	min_multiplications_memoized = memoized_matrix_chain(p, n)
+	memoized_time = time.time() - start_time  # Calculate elapsed time
 	print(memoized_matrix_chain(p, n))
+	print("Memoized:", memoized_time)
+	print()
